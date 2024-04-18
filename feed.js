@@ -40,12 +40,15 @@ pool.subscribeMany(relays, [{
     feed.unshift({
       content: stringparse(event.content),
       date: (new Date(event.created_at * 1000)).toLocaleString("ia"),
-      noteId: NostrTools.nip19.noteEncode(event.id)
+      noteId: NostrTools.nip19.noteEncode(event.id),
+      rawDate: event.created_at
     });
+
+    feed = feed.sort((a, b) => b.rawDate - a.rawDate);
 
     console.log("Got note:", event.content);
   },
-  oneose: _ => feed = feed.reverse()
+  oneose: _ => null
 });
 
 
