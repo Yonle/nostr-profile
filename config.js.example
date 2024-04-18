@@ -12,6 +12,8 @@ module.exports = {
 
   listen: "127.0.0.1",
   port: 3000,
+
+  // urlprefix should always end with /
   urlprefix: "/",
 
   // Whenever you would like to make this server listen as FastCGI instead of regular HTTP server
