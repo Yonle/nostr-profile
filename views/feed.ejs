@@ -42,7 +42,8 @@
           <span class="plaintext"><%- event.content %></span>
         </div>
       <% } %>
-      <small><a href="nostr:<%= npub %>">View more post from <%= profile.display_name || profile.name %> in Nostr client</a></small>
+      <small><a href="nostr:<%= npub %>">View more post from <%= profile.display_name || profile.name %> in Nostr client</a></small><br><br>
+      <small>Rendered by <a href="https://github.com/Yonle/nostr-profile">nostr-profile</a></span>
     </div>
   </body>
 </html>
