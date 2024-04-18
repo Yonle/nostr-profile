@@ -46,7 +46,7 @@ function link(t) {
       }
     }
 
-    return sanitize(line);
+    return `<a href="${encodeURI(line)}">${line}</a>`;
   }).join(" ");
 }
 
