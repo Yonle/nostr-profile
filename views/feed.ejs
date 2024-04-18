@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= profile.display_name || profile.name %> - in nostr</title>
+    <meta name="description" content="<%= profile.about %>">
+    <meta name="author" content="<%= profile.display_name || profile.name %> in Nostr">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:title" content="<%= profile.display_name || profile.name %>">
+    <meta property="og:description" content="<%= profile.about %>">
+    <meta property="og:site_name" content="Nostr">
+    <meta property="og:image" content="<%= profile.banner %>">
+
+    <link rel="shortcut icon" href="/favicon.ico" href="<%= profile.picture %>">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="top">
+      <img id="top_banner_img" src="<%= profile.banner %>" />
+      <img id="top_profilepicture" src="<%= profile.picture %>" />
+      <h2 id="top_displayname" class="plaintext"><%= profile.display_name || profile.name %></h2>
+      <span id="top_nip05" class="plaintext" ><%= profile.nip05 || pubkey %></span><br><br>
+      <span id="top_about" class="plaintext"><%= profile.about %></span><br><br>
+
+      <small><a href="nostr:<%= npub %>">View profile in Nostr client</a></small>
+    </div>
+
+    <div id="posts">
+      <h2>Recent Notes</h2>
+      <% for (const event of notes) { %>
+        <div class="post">
+          <div class="post_profile">
+            <img class="post_profilepicture" src="<%= profile.picture %>" />
+            <div class="post_profileinfo">
+              <span class="post_profilename"><%= profile.display_name || profile.name %></span><br>
+              <a href="nostr:<%= event.noteId %>"><span class="post_date"><%= event.date %></span></a>
+            </div>
+          </div>
+          <span class="plaintext"><%- event.content %></span>
+        </div>
+      <% } %>
+      <small><a href="nostr:<%= npub %>">View more post from <%= profile.display_name || profile.name %> in Nostr client</a></small>
+    </div>
+  </body>
+</html>

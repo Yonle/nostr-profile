@@ -1,0 +1,74 @@
+.attachment, img {
+  max-width: 100%;
+}
+
+h2 {
+  margin: 0;
+}
+
+#top {
+  margin-bottom: 2em;
+}
+
+#top_banner_img {
+  max-width: 100%;
+}
+
+#top_profilepicture {
+  float: right;
+  height: 100px;
+  margin-left: 0.1em;
+}
+
+#top_displayname {
+  /* do something */
+}
+
+#top_nip05 {
+  color: grey;
+}
+
+.plaintext {
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.post {
+  border-bottom: 1px dotted grey;
+  margin-bottom: 1em;
+}
+
+.post_profile {
+  width: 100%;
+  margin-bottom: 1.5em;
+}
+
+.post_profilepicture {
+  float: left;
+  height: 40px;
+  margin-right: 5px;
+}
+
+@media only screen and (min-width: 960px) {
+  body {
+    display: flex;
+    margin: 0 10vw;
+  }
+
+  .attachment {
+    max-width: 50%;
+  }
+
+  #top_profilepicture {
+    height: 70px;
+  }
+
+  #top {
+    width: 40vw;
+    margin-right: 1em;
+  }
+
+  #posts {
+    width: 60vw;
+  }
+}
