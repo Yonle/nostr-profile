@@ -63,4 +63,4 @@ function getNotes() {
 console.log("Configured Relays:", relays);
 console.log("Pubkey:", pubkey);
 
-module.exports = { getNotes, getProfile, npub }
+module.exports = { getNotes, getProfile, npub, rawpubkey }

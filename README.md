@@ -1,6 +1,8 @@
 # nostr-profile
 Simple webpage to show your personal nostr profile alongside with it's posts.
 
+It also supports serving as a server with NIP-05 compatible address, Allowing to use as NIP-05 address.
+
 ## Installation
 ```
 git clone https://github.com/Yonle/nostr-profile
@@ -14,6 +16,25 @@ You will need to configure `config.js` before running the server.
 Once it's all set, Start the server by:
 ```
 node index.js
+```
+
+You could test by visiting `http://localhost:3000`. Once finished, Serve it with reverse proxy.
+
+### Using as NIP-05 address
+If nostr-profile server is served in `nostr.example.com` (example) domain, You could use the address as your NIP-05 in your profile.
+
+```
+_@nostr.example.com
+```
+
+You could replace `_` to anything as you wish.
+```
+whatever@nostr.example.com
+anon@nostr.example.com
+bob@nostr.example.com
+mike@nostr.example.com
+
+and more
 ```
 
 ## License

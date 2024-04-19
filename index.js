@@ -1,5 +1,5 @@
 "use strict";
-const { listen, port, urlprefix, fastcgi } = require("./config");
+const { listen, port, urlprefix, fastcgi, relays } = require("./config");
 const express = require("express");
 const fs = require("fs");
 const feed = require("./feed.js");
@@ -7,9 +7,35 @@ const styleCSS = fs.readFileSync(__dirname + "/public/style.css", "utf8");
 
 const app = express();
 
+let nip05 = {
+  names: {
+    _: feed.rawpubkey
+  },
+  relays: {}
+}
+
+nip05.relays[feed.rawpubkey] = relays;
+
 app.set("views", __dirname + "/local/views");
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
+
+app.get("/.well-known/nostr.json", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "0");
+
+  if (req.query.name) {
+    let newNIP05 = {
+      names: {},
+      relays: nip05.relays
+    }
+
+    newNIP05.names[req.query.name] = feed.rawpubkey
+
+    return res.json(newNIP05);
+  }
+
+  res.json(nip05);
+});
 
 app.get(urlprefix + "style.css", (req, res) => res.header("Content-Type", "text/css; charset=UTF-8").send(styleCSS));
 app.get(urlprefix, (req, res) => {
