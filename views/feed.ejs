@@ -22,8 +22,8 @@
       <img id="top_banner_img" src="<%= profile.banner %>" />
       <img id="top_profilepicture" src="<%= profile.picture %>" />
       <h2 id="top_displayname" class="plaintext"><%= profile.display_name || profile.name %></h2>
-      <span id="top_nip05" class="plaintext" ><%= profile.nip05 || pubkey %></span><br><br>
-      <span id="top_about" class="plaintext"><%= profile.about %></span><br><br>
+      <span id="top_nip05" class="plaintext" ><%= profile.nip05 || pubkey %></span>
+      <p id="top_about" class="plaintext"><%= profile.about %></p>
 
       <small><a href="nostr:<%= npub %>">View profile in Nostr client</a></small>
     </div>
@@ -39,7 +39,7 @@
               <a href="nostr:<%= event.noteId %>"><span class="post_date"><%= event.date %></span></a>
             </div>
           </div>
-          <span class="plaintext"><%- event.content %></span>
+          <p class="plaintext"><%- event.content %></p>
         </div>
       <% } %>
       <small><a href="nostr:<%= npub %>">View more post from <%= profile.display_name || profile.name %> in Nostr client</a></small><br><br>
