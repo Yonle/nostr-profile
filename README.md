@@ -37,6 +37,8 @@ mike@nostr.example.com
 and more
 ```
 
+NIP-05 is served at path `/.well-known/nostr.json`. It could not be changed through `urlprefix` as per [spec](https://github.com/nostr-protocol/nips/blob/master/05.md). So ensure that your reverse proxy is also configured to forward the same path as for the NIP-05.
+
 ## License
 Copyright 2024 Yonle <yonle@lecturify.net>
 
