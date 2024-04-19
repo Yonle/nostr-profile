@@ -1,10 +1,7 @@
 "use strict";
 const { listen, port, urlprefix, fastcgi, relays } = require("./config");
 const express = require("express");
-const fs = require("fs");
 const feed = require("./feed.js");
-const styleCSS = fs.readFileSync(__dirname + "/public/style.css", "utf8");
-
 const app = express();
 
 let nip05 = {
@@ -37,7 +34,7 @@ app.get("/.well-known/nostr.json", (req, res) => {
   res.json(nip05);
 });
 
-app.get(urlprefix + "style.css", (req, res) => res.header("Content-Type", "text/css; charset=UTF-8").send(styleCSS));
+app.get(urlprefix + "style.css", (req, res) => res.sendFile(__dirname + "/public/style.css"));
 app.get(urlprefix, (req, res) => {
   const profile = feed.getProfile();
   const notes = feed.getNotes();
