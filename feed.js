@@ -17,7 +17,10 @@ let user_status = {
   at: null
 };
 
-let profile = null;
+let profile = {
+  content: {},
+  at: null
+};
 
 // profile
 pool.subscribeMany(relays, [{
@@ -27,16 +30,18 @@ pool.subscribeMany(relays, [{
 }], {
   onevent: event => {
     if (!NostrTools.verifyEvent(event)) return;
-    profile = JSON.parse(event.content);
+    if (event.created_at < profile.at) return;
+    profile.at = event.created_at;
+    profile.content = JSON.parse(event.content);
 
-    for (const i in profile) {
+    for (const i in profile.content) {
       // sanitize the strings
-      if (typeof(profile[i]) !== "string") continue;
+      if (typeof(profile.content[i]) !== "string") continue;
 
-      profile[i] = stringparse.sanitize(profile[i], getEmojis(event));
+      profile.content[i] = stringparse.sanitize(profile.content[i], getEmojis(event));
     }
 
-    console.log("Got profile:", profile);
+    console.log("Got profile:", profile.content);
   },
   oneose: _ => null
 });
@@ -73,10 +78,10 @@ pool.subscribeMany(relays, [{
 }], {
   onevent: event => {
     if (!NostrTools.verifyEvent(event)) return;
-    const tags = Object.fromEntries(event.tags);
-
     if (!event.content) return;
-    if (event.created_at < user_status.at);
+    if (event.created_at < user_status.at) return;
+
+    const tags = Object.fromEntries(event.tags);
 
     user_status.at = event.created_at;
     user_status.text = stringparse(event.content, getEmojis(event));
@@ -89,7 +94,7 @@ pool.subscribeMany(relays, [{
 });
 
 function getProfile() {
-  return profile;
+  return profile.content;
 }
 
 function getNotes() {
