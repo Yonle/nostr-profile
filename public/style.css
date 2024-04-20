@@ -6,7 +6,7 @@ h2 {
   margin: 0;
 }
 
-#top {
+#left_panel {
   margin-bottom: 2em;
 }
 
@@ -56,8 +56,11 @@ h2 {
 
 @media only screen and (min-width: 960px) {
   body {
-    display: flex;
     margin: 0 10vw;
+  }
+
+  #main {
+    display: flex;
   }
 
   .attachment {
@@ -68,12 +71,18 @@ h2 {
     height: 70px;
   }
 
-  #top {
-    width: 43vw;
+  #left_panel {
+    width: 30vw;
+    height: 100vh;
+    overflow: scroll;
     margin-right: 1em;
+    scrollbar-width: none;
   }
 
-  #posts {
-    width: 57vw;
+  #right_panel {
+    width: 70vw;
+    height: 100vh;
+    overflow: scroll;
+    scrollbar-width: thin;
   }
 }

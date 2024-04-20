@@ -18,32 +18,34 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="top">
-      <img id="top_banner_img" src="<%= profile.banner %>" />
-      <img id="top_profilepicture" src="<%= profile.picture %>" />
-      <h2 id="top_displayname" class="plaintext"><%= profile.display_name || profile.name %></h2>
-      <span id="top_nip05" class="plaintext" ><%= profile.nip05 || pubkey %></span>
-      <p id="top_about" class="plaintext"><%= profile.about %></p>
+    <div id="main">
+      <div id="left_panel">
+        <img id="top_banner_img" src="<%= profile.banner %>" />
+        <img id="top_profilepicture" src="<%= profile.picture %>" />
+        <h2 id="top_displayname" class="plaintext"><%= profile.display_name || profile.name %></h2>
+        <span id="top_nip05" class="plaintext" ><%= profile.nip05 || pubkey %></span>
+        <p id="top_about" class="plaintext"><%= profile.about %></p>
 
-      <small><a href="nostr:<%= npub %>">View profile in Nostr client</a></small>
-    </div>
+        <small><a href="nostr:<%= npub %>">View profile in Nostr client</a></small>
+      </div>
 
-    <div id="posts">
-      <h2>Recent Notes</h2>
-      <% for (const event of notes) { %>
-        <div class="post">
-          <div class="post_profile">
-            <img class="post_profilepicture" src="<%= profile.picture %>" />
-            <div class="post_profileinfo">
-              <span class="post_profilename"><%= profile.display_name || profile.name %></span><br>
-              <a href="nostr:<%= event.noteId %>"><span class="post_date"><%= event.date %></span></a>
+      <div id="right_panel">
+        <h2>Recent Notes</h2>
+        <% for (const event of notes) { %>
+          <div class="post">
+            <div class="post_profile">
+              <img class="post_profilepicture" src="<%= profile.picture %>" />
+              <div class="post_profileinfo">
+                <span class="post_profilename"><%= profile.display_name || profile.name %></span><br>
+                <a href="nostr:<%= event.noteId %>"><span class="post_date"><%= event.date %></span></a>
+              </div>
             </div>
+            <p class="plaintext"><%- event.content %></p>
           </div>
-          <p class="plaintext"><%- event.content %></p>
-        </div>
-      <% } %>
-      <small><a href="nostr:<%= npub %>">View more post from <%= profile.display_name || profile.name %> in Nostr client</a></small><br><br>
-      <small>Rendered by <a href="https://github.com/Yonle/nostr-profile">nostr-profile</a></span>
+        <% } %>
+        <small><a href="nostr:<%= npub %>">View more post from <%= profile.display_name || profile.name %> in Nostr client</a></small><br><br>
+      </div>
     </div>
+    <small style="border-top: 1px solid grey;">Rendered by <a href="https://github.com/Yonle/nostr-profile">nostr-profile</a></span>
   </body>
 </html>
