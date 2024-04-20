@@ -12,6 +12,7 @@ const stringparse = require("./stringparse.js");
 NostrTools.useWebSocketImplementation(ws);
 
 let feed = [];
+let user_status = "";
 let profile = null;
 
 // profile
@@ -57,12 +58,35 @@ pool.subscribeMany(relays, [{
   oneose: _ => null
 });
 
+// status
+pool.subscribeMany(relays, [{
+  authors: [rawpubkey],
+  kinds: [30315],
+  limit: 1,
+}], {
+  onevent: event => {
+    if (!NostrTools.verifyEvent(event)) return;
+    const tags = Object.fromEntries(event.tags);
+
+    user_status = stringparse(event.content, getEmojis(event));
+    if (tags.d == "music") user_status = "♫" + user_status;
+    if (tags.r) user_status = `<a href="${encodeURI(tags.r)}">${user_status}</a>`;
+
+    console.log("Got status:", user_status);
+  },
+  oneose: _ => null
+});
+
 function getProfile() {
   return profile;
 }
 
 function getNotes() {
   return feed;
+}
+
+function getStatus() {
+  return user_status;
 }
 
 function getEmojis(event) {
@@ -72,4 +96,4 @@ function getEmojis(event) {
 console.log("Configured Relays:", relays);
 console.log("Pubkey:", pubkey);
 
-module.exports = { getNotes, getProfile, npub, rawpubkey }
+module.exports = { getNotes, getProfile, getStatus, npub, rawpubkey }

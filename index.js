@@ -38,11 +38,12 @@ app.get(urlprefix + "style.css", (req, res) => res.sendFile(__dirname + "/public
 app.get(urlprefix, (req, res) => {
   const profile = feed.getProfile();
   const notes = feed.getNotes();
+  const status = feed.getStatus();
 
   if (!profile || !notes) return res.status(500).header("Content-Type", "text/plain").send(`Sorry. This page is not ready. Please try again later.\n\nAlternatively, Open the following npub via your nostr client:\n${feed.npub}`);
 
   res.render("feed.ejs", {
-    profile, notes, npub: feed.npub
+    profile, notes, status, npub: feed.npub
   });
 });
 
