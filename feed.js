@@ -68,6 +68,8 @@ pool.subscribeMany(relays, [{
     if (!NostrTools.verifyEvent(event)) return;
     const tags = Object.fromEntries(event.tags);
 
+    if (!event.content) return;
+
     user_status = stringparse(event.content, getEmojis(event));
     if (tags.d == "music") user_status = "♫" + user_status;
     if (tags.r) user_status = `<a href="${encodeURI(tags.r)}">${user_status}</a>`;
