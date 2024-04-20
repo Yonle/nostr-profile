@@ -12,7 +12,11 @@ const stringparse = require("./stringparse.js");
 NostrTools.useWebSocketImplementation(ws);
 
 let feed = [];
-let user_status = "";
+let user_status = {
+  text: "",
+  at: null
+};
+
 let profile = null;
 
 // profile
@@ -69,12 +73,14 @@ pool.subscribeMany(relays, [{
     const tags = Object.fromEntries(event.tags);
 
     if (!event.content) return;
+    if (event.created_at < user_status.at);
 
-    user_status = stringparse(event.content, getEmojis(event));
-    if (tags.d == "music") user_status = "♫" + user_status;
-    if (tags.r) user_status = `<a href="${encodeURI(tags.r)}">${user_status}</a>`;
+    user_status.at = event.created_at;
+    user_status.text = stringparse(event.content, getEmojis(event));
+    if (tags.d == "music") user_status.text = "♫" + user_status.text;
+    if (tags.r) user_status.text = `<a href="${encodeURI(tags.r)}">${user_status.text}</a>`;
 
-    console.log("Got status:", user_status);
+    console.log("Got status:", user_status.text);
   },
   oneose: _ => null
 });
@@ -88,7 +94,7 @@ function getNotes() {
 }
 
 function getStatus() {
-  return user_status;
+  return user_status.text;
 }
 
 function getEmojis(event) {
