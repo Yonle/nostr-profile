@@ -22,6 +22,12 @@ pool.subscribeMany(relays, [{
   onevent: event => {
     if (!NostrTools.verifyEvent(event)) return;
     profile = JSON.parse(event.content);
+
+    for (const i in profile) {
+      // sanitize the strings
+      profile[i] = stringparse(profile[i], getEmojis(event));
+    }
+
     console.log("Got profile:", profile);
   },
   oneose: _ => null
@@ -38,7 +44,7 @@ pool.subscribeMany(relays, [{
     if (feed.length >= (max_posts || 100)) feed.pop();
 
     feed.unshift({
-      content: stringparse(event.content),
+      content: stringparse(event.content, getEmojis(event)),
       date: (new Date(event.created_at * 1000)).toLocaleString("ia"),
       noteId: NostrTools.nip19.noteEncode(event.id),
       rawDate: event.created_at
@@ -51,13 +57,16 @@ pool.subscribeMany(relays, [{
   oneose: _ => null
 });
 
-
 function getProfile() {
   return profile;
 }
 
 function getNotes() {
   return feed;
+}
+
+function getEmojis(event) {
+  return event.tags.filter(i => i[0] === "emoji").map(i => i.slice(1));
 }
 
 console.log("Configured Relays:", relays);
