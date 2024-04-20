@@ -82,8 +82,8 @@ pool.subscribeMany(relays, [{
 }], {
   onevent: event => {
     if (!NostrTools.verifyEvent(event)) return;
-    if (!event.content) return;
     if (event.created_at < user_status.at) return;
+    if (!event.content) return user_status.text = "";
 
     const tags = Object.fromEntries(event.tags);
 
