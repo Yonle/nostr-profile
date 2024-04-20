@@ -28,6 +28,10 @@ h2 {
   color: grey;
 }
 
+#top_lud16 {
+  color: orange;
+}
+
 .plaintext {
   white-space: pre-line;
   word-wrap: break-word;

@@ -24,6 +24,7 @@
         <img id="top_profilepicture" src="<%= profile.picture %>" />
         <h2 id="top_displayname" class="plaintext"><%- profile.display_name || profile.name %></h2>
         <span id="top_nip05" class="plaintext" ><%- profile.nip05 || pubkey %></span><br>
+        <small id="top_lud16"><%- profile.lud16 %></small><br>
         <small id="top_user_status"><%- status %></small>
         <p id="top_about" class="plaintext"><%- profile.about %></p>
 

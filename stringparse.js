@@ -13,10 +13,6 @@ function encode_char(c) {
   return _ENCODE_HTML_RULES[c] || c;
 }
 
-module.exports = function (t, emojis) {
-  return t.split("\n").map(_ => link(_, emojis)).join("\n");
-}
-
 function link(t, emojis) {
   return t.split(" ").map(line => {
     if (!line.startsWith("http")) return sanitize(line, emojis);
@@ -61,3 +57,9 @@ function sanitize(line, emojis) {
 
   return sanitizedString.replace(/:([^:]+):/g, (str, name) => add_emojis(str, name, custom_emojis));
 }
+
+module.exports = function (t, emojis) {
+  return t.split("\n").map(_ => link(_, emojis)).join("\n");
+}
+
+module.exports.sanitize = sanitize;

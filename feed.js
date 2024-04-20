@@ -22,7 +22,8 @@ let profile = null;
 // profile
 pool.subscribeMany(relays, [{
   authors: [rawpubkey],
-  kinds: [0]
+  kinds: [0],
+  limit: 1,
 }], {
   onevent: event => {
     if (!NostrTools.verifyEvent(event)) return;
@@ -30,7 +31,9 @@ pool.subscribeMany(relays, [{
 
     for (const i in profile) {
       // sanitize the strings
-      profile[i] = stringparse(profile[i], getEmojis(event));
+      if (typeof(profile[i]) !== "string") continue;
+
+      profile[i] = stringparse.sanitize(profile[i], getEmojis(event));
     }
 
     console.log("Got profile:", profile);
