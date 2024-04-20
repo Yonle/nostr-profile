@@ -34,14 +34,14 @@ pool.subscribeMany(relays, [{
     profile.at = event.created_at;
     profile.content = JSON.parse(event.content);
 
+    console.log("Got profile:", profile.content);
+
     for (const i in profile.content) {
       // sanitize the strings
       if (typeof(profile.content[i]) !== "string") continue;
 
       profile.content[i] = stringparse.sanitize(profile.content[i], getEmojis(event));
     }
-
-    console.log("Got profile:", profile.content);
   },
   oneose: _ => null
 });
@@ -85,10 +85,11 @@ pool.subscribeMany(relays, [{
 
     user_status.at = event.created_at;
     user_status.text = stringparse(event.content, getEmojis(event));
-    if (tags.d == "music") user_status.text = "♫" + user_status.text;
-    if (tags.r) user_status.text = `<a href="${encodeURI(tags.r)}">${user_status.text}</a>`;
 
     console.log("Got status:", user_status.text);
+
+    if (tags.d == "music") user_status.text = "♫" + user_status.text;
+    if (tags.r) user_status.text = `<a href="${encodeURI(tags.r)}">${user_status.text}</a>`;
   },
   oneose: _ => null
 });
