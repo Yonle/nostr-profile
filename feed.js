@@ -40,6 +40,10 @@ pool.subscribeMany(relays, [{
       // sanitize the strings
       if (typeof(profile.content[i]) !== "string") continue;
 
+      if (i === "about") {
+        profile.content[i] = stringparse(profile.content[i], getEmojis(event));
+        continue;
+      }
       profile.content[i] = stringparse.sanitize(profile.content[i], getEmojis(event));
     }
   },

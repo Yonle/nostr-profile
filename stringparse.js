@@ -21,7 +21,7 @@ function link(t, emojis) {
     // Videos
     for (const ex of ["mp4", "mov", "webm", "ogv"]) {
       if (path.endsWith("." + ex)) {
-        return `<video class="attachment video" loading="lazy" controls src="${encodeURI(line)}"></video>`;
+        return `<video class="attachment video" loading="lazy" controls src="${line}"></video>`;
         break;
       }
     }
@@ -29,7 +29,7 @@ function link(t, emojis) {
     // Audios
     for (const ex of ["mp3", "aac", "weba", "m4a", "flac", "wav", "ogg", "oga", "opus"]) {
       if (path.endsWith("." + ex)) {
-        return `<audio class="attachment audio" loading="lazy" controls src="${encodeURI(line)}"></audio>`;
+        return `<audio class="attachment audio" loading="lazy" controls src="${line}"></audio>`;
         break;
       }
     }
@@ -37,12 +37,12 @@ function link(t, emojis) {
     // Images
     for (const ex of ["jpg", "jpeg", "png", "apng", "webp", "avif", "gif"]) {
       if (path.endsWith("." + ex)) {
-        return `<a href="${encodeURI(line)}"><img class="attachment img" loading="lazy" src="${encodeURI(line)}" /></a>`
+        return `<a href="${line}"><img class="attachment img" loading="lazy" src="${line}" /></a>`
         break;
       }
     }
 
-    return `<a href="${encodeURI(line)}">${line}</a>`;
+    return `<a href="${line}" class="plaintext">${line}</a>`;
   }).join(" ");
 }
 

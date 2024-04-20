@@ -24,8 +24,9 @@
         <img id="top_profilepicture" src="<%= profile.picture %>" />
         <h2 id="top_displayname" class="plaintext"><%- profile.display_name || profile.name %></h2>
         <span id="top_nip05" class="plaintext" ><%- profile.nip05 || pubkey %></span><br>
-        <small id="top_lud16"><%- profile.lud16 %></small><br>
-        <small id="top_user_status"><%- status %></small>
+        <span id="top_website" class="plaintext"><a href="<%- profile.website %>"><%- profile.website %></a></span><br>
+        <small id="top_lud16" class="plaintext"><%- profile.lud16 %></small><br>
+        <small id="top_user_status" class="plaintext"><%- status %></small>
         <p id="top_about" class="plaintext"><%- profile.about %></p>
 
         <small><a href="nostr:<%= npub %>">View profile in Nostr client</a></small>
@@ -38,8 +39,8 @@
             <div class="post_profile">
               <img class="post_profilepicture" src="<%= profile.picture %>" />
               <div class="post_profileinfo">
-                <span class="post_profilename"><%- profile.display_name || profile.name %></span><br>
-                <a href="nostr:<%= event.noteId %>"><span class="post_date"><%= event.date %></span></a>
+                <span class="post_profilename plaintext"><%- profile.display_name || profile.name %></span><br>
+                <a href="nostr:<%= event.noteId %>"><span class="post_date plaintext"><%= event.date %></span></a>
               </div>
             </div>
             <p class="plaintext"><%- event.content %></p>
