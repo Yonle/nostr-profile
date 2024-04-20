@@ -52,7 +52,7 @@ function link(t, emojis) {
 
 
 function add_emojis(str, name, emojis) {
-  return emojis[name] ? `<img class="post_custom_emoji" src="${emojis[name]}" alt="${name}" />` : str;
+  return emojis[name] ? `<img class="post_custom_emoji" src="${emojis[name]}" alt="${str}" title="${str}" />` : str;
 }
 
 function sanitize(line, emojis) {
