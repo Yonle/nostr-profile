@@ -18,7 +18,7 @@ let user_status = {
 };
 
 let profile = {
-  content: {},
+  content: null,
   at: null
 };
 
@@ -90,7 +90,7 @@ pool.subscribeMany(relays, [{
     user_status.at = event.created_at;
     user_status.text = stringparse(event.content, getEmojis(event));
 
-    console.log("Got status:", user_status.text);
+    console.log("Got status:", event.content);
 
     if (tags.d == "music") user_status.text = "♫" + user_status.text;
     if (tags.r) user_status.text = `<a href="${encodeURI(tags.r)}">${user_status.text}</a>`;
