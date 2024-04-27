@@ -5,9 +5,10 @@ const _ENCODE_HTML_RULES = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&#34;',
-  "'": '&#39;'
+  "'": '&#39;',
+  " ": "&nbsp;",
 };
-const _MATCH_HTML = /[&<>'"]/g;
+const _MATCH_HTML = /[&<>'"\\ ]/g;
 
 function encode_char(c) {
   return _ENCODE_HTML_RULES[c] || c;
