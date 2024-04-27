@@ -8,7 +8,7 @@ const _ENCODE_HTML_RULES = {
   "'": '&#39;',
   " ": "&nbsp;",
 };
-const _MATCH_HTML = /[&<>'"\\ ]/g;
+const _MATCH_HTML = /[&<>'" ]/g;
 
 function encode_char(c) {
   return _ENCODE_HTML_RULES[c] || c;
@@ -16,7 +16,7 @@ function encode_char(c) {
 
 function link(t, emojis) {
   return t.split(" ").map(line => {
-    if (!line.startsWith("http")) return sanitize(line, emojis);
+    if (!line.startsWith("http")) return addEmojis(line, emojis);
     const path = line.split("?")[0];
 
     // Videos
@@ -48,19 +48,35 @@ function link(t, emojis) {
 }
 
 
-function add_emojis(str, name, emojis) {
+function _add_emojis(str, name, emojis) {
+  // 4
   return emojis[name] ? `<img class="post_custom_emoji" src="${encodeURI(emojis[name])}" alt="${str}" title="${str}" />` : str;
 }
 
+function _sanitize(line) {
+  // 2
+  return String(line).replace(_MATCH_HTML, encode_char);
+}
+
 function sanitize(line, emojis) {
-  let sanitizedString = String(line).replace(_MATCH_HTML, encode_char);
+  // 1
+  let sanitizedString = _sanitize(line);
+  return addEmojis(sanitizedString, emojis);
+}
+
+function addEmojis(line, emojis) {
+  // 3
   let custom_emojis = Object.fromEntries(emojis);
 
-  return sanitizedString.replace(/:([^:]+):/g, (str, name) => add_emojis(str, name, custom_emojis));
+  return line.replace(/:([^:]+):/g, (str, name) => _add_emojis(str, name, custom_emojis));
 }
 
 module.exports = function (t, emojis) {
-  return t.split("\n").map(_ => link(_, emojis)).join("\n");
+  try {
+    return _sanitize(t).split("\n").map(_ => link(_, emojis)).join("\n");
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 module.exports.sanitize = sanitize;
