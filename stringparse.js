@@ -15,7 +15,7 @@ function encode_char(c) {
 }
 
 function link(t, emojis) {
-  return t.split(" ").map(line => {
+  return t.split(_ENCODE_HTML_RULES[" "]).map(line => {
     if (!line.startsWith("http")) return addEmojis(line, emojis);
     const path = line.split("?")[0];
 
