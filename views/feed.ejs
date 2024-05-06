@@ -40,7 +40,7 @@
               <img class="post_profilepicture" src="<%= profile.picture %>" />
               <div class="post_profileinfo">
                 <span class="post_profilename plaintext"><%- profile.display_name || profile.name %></span><br>
-                <a href="nostr:<%= event.noteId %>"><span class="post_date plaintext"><%= event.date %></span></a>
+                <span class="post_date plaintext"><a href="nostr:<%= event.noteId %>"><%= event.date %></a></span> - <span class="markLinkElement"><a href="#<%= event.noteId %>">marklink</a></span>
               </div>
             </div>
             <p class="plaintext"><%- event.content %></p>
