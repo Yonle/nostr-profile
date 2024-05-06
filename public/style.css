@@ -76,7 +76,7 @@ h2 {
   }
 
   #left_panel {
-    width: 30vw;
+    width: 26vw;
     height: 100vh;
     overflow: scroll;
     margin-right: 1em;
@@ -84,7 +84,7 @@ h2 {
   }
 
   #right_panel {
-    width: 70vw;
+    width: 74vw;
     height: 100vh;
     overflow: scroll;
     scrollbar-width: thin;
