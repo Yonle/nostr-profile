@@ -35,7 +35,7 @@
       <div id="right_panel">
         <h2>Recent Notes</h2>
         <% for (const event of notes) { %>
-          <div class="post">
+          <div class="post" id="<%= event.noteId %>">
             <div class="post_profile">
               <img class="post_profilepicture" src="<%= profile.picture %>" />
               <div class="post_profileinfo">
