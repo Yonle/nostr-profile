@@ -20,15 +20,6 @@ node index.js
 
 You could test by visiting `http://localhost:3000`. Once finished, Serve it with reverse proxy.
 
-
-In case if you want to change the HTML, Make `local` directory then copy `views` directory to inside `local` dir.
-```
-mkdir local
-cp -r views local/
-cd local/views/
-```
-From here, You edit your changes in `local/views/` without affecting the upstream git commits.
-
 ### Using as NIP-05 address
 If nostr-profile server is served in `nostr.example.com` (example) domain, You could use the address as your NIP-05 in your profile.
 

@@ -13,7 +13,6 @@ let nip05 = {
 
 nip05.relays[feed.rawpubkey] = relays;
 
-app.set("views", __dirname + "/local/views");
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
